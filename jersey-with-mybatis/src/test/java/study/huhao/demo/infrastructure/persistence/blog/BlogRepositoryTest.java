@@ -3,11 +3,12 @@ package study.huhao.demo.infrastructure.persistence.blog;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import study.huhao.demo.domain.core.excpetions.EntityNotFoundException;
 import study.huhao.demo.domain.blogcontext.blog.Blog;
 import study.huhao.demo.domain.blogcontext.blog.BlogCriteria;
 import study.huhao.demo.domain.blogcontext.blog.BlogRepository;
 import study.huhao.demo.domain.blogcontext.blog.BlogService;
+import study.huhao.demo.domain.core.Page;
+import study.huhao.demo.domain.core.excpetions.EntityNotFoundException;
 import study.huhao.demo.infrastructure.persistence.RepositoryTest;
 
 import java.util.UUID;
@@ -29,10 +30,10 @@ class BlogRepositoryTest extends RepositoryTest {
 
     @Test
     void findById() {
-        var blog = blogService
+        Blog blog = blogService
                 .createBlog("Test Blog", "Something...", UUID.randomUUID());
 
-        var foundBlog = blogService.getBlog(blog.getId());
+        Blog foundBlog = blogService.getBlog(blog.getId());
 
         assertThat(foundBlog.getId()).isEqualTo(blog.getId());
         assertThat(foundBlog.getTitle()).isEqualTo("Test Blog");
@@ -41,12 +42,12 @@ class BlogRepositoryTest extends RepositoryTest {
 
     @Test
     void save_updated_blog() {
-        var blog = blogService
+        Blog blog = blogService
                 .createBlog("Test Blog", "Something...", UUID.randomUUID());
 
         blogService.saveBlog(blog.getId(), "Updated Title", "Updated...");
 
-        var foundBlog = blogService.getBlog(blog.getId());
+        Blog foundBlog = blogService.getBlog(blog.getId());
         assertThat(foundBlog.getId()).isEqualTo(blog.getId());
         assertThat(foundBlog.getTitle()).isEqualTo("Updated Title");
         assertThat(foundBlog.getBody()).isEqualTo("Updated...");
@@ -54,7 +55,7 @@ class BlogRepositoryTest extends RepositoryTest {
 
     @Test
     void delete_blog() {
-        var blog = blogService
+        Blog blog = blogService
                 .createBlog("Test Blog", "Something...", UUID.randomUUID());
 
         blogService.deleteBlog(blog.getId());
@@ -65,12 +66,12 @@ class BlogRepositoryTest extends RepositoryTest {
 
     @Test
     void publish_blog() {
-        var blog = blogService
+        Blog blog = blogService
                 .createBlog("Test Blog", "Something...", UUID.randomUUID());
 
         blogService.publishBlog(blog.getId());
 
-        var foundBlog = blogService.getBlog(blog.getId());
+        Blog foundBlog = blogService.getBlog(blog.getId());
         assertThat(foundBlog.getId()).isEqualTo(blog.getId());
         assertThat(foundBlog.getStatus()).isEqualTo(Blog.Status.Published);
         assertThat(foundBlog.getPublished()).isNotNull();
@@ -81,13 +82,13 @@ class BlogRepositoryTest extends RepositoryTest {
 
     @Test
     void get_all_blog() {
-        var authorId = UUID.randomUUID();
+        UUID authorId = UUID.randomUUID();
         for (int i = 0; i < 5; i++) {
             blogService.createBlog("Test Blog " + (i + 1), "Something...", authorId);
         }
-        var criteria = BlogCriteria.builder().limit(3).offset(3).build();
+        BlogCriteria criteria = BlogCriteria.builder().limit(3).offset(3).build();
 
-        var pagedBlog = blogService.getAllBlog(criteria);
+        Page<Blog> pagedBlog = blogService.getAllBlog(criteria);
 
         assertThat(pagedBlog.getResults()).hasSize(2);
         assertThat(pagedBlog.getLimit()).isEqualTo(3);

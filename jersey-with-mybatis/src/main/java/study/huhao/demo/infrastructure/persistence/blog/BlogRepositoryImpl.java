@@ -2,11 +2,12 @@ package study.huhao.demo.infrastructure.persistence.blog;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import study.huhao.demo.domain.core.Page;
 import study.huhao.demo.domain.blogcontext.blog.Blog;
 import study.huhao.demo.domain.blogcontext.blog.BlogCriteria;
 import study.huhao.demo.domain.blogcontext.blog.BlogRepository;
+import study.huhao.demo.domain.core.Page;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -25,12 +26,15 @@ public class BlogRepositoryImpl implements BlogRepository {
 
     @Override
     public void save(Blog blog) {
-        var blogPO = BlogPO.of(blog);
+        BlogPO blogPO = BlogPO.of(blog);
 
-        blogMapper.findById(blog.getId().toString()).ifPresentOrElse(
-                po -> blogMapper.update(blogPO),
-                () -> blogMapper.insert(blogPO)
-        );
+        Optional<BlogPO> existedBlog = blogMapper.findById(blog.getId().toString());
+        if (existedBlog.isPresent()) {
+            blogMapper.update(blogPO);
+        } else {
+            blogMapper.insert(blogPO);
+        }
+
     }
 
     @Override
@@ -50,9 +54,9 @@ public class BlogRepositoryImpl implements BlogRepository {
 
     @Override
     public Page<Blog> findAllWithPagination(BlogCriteria criteria) {
-        var total = blogMapper.countTotalByCriteria(criteria);
+        long total = blogMapper.countTotalByCriteria(criteria);
 
-        var pagedBlog = blogMapper.selectAllByCriteria(criteria).stream().map(BlogPO::toDomainModel).collect(toList());
+        List<Blog> pagedBlog = blogMapper.selectAllByCriteria(criteria).stream().map(BlogPO::toDomainModel).collect(toList());
 
         return new Page<>(
                 pagedBlog,

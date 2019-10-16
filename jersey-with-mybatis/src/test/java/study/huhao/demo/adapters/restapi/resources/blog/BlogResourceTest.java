@@ -1,5 +1,6 @@
 package study.huhao.demo.adapters.restapi.resources.blog;
 
+import com.google.common.collect.ImmutableMap;
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -8,7 +9,6 @@ import org.springframework.http.HttpStatus;
 import study.huhao.demo.adapters.restapi.resources.ResourceTest;
 import study.huhao.demo.domain.blogcontext.blog.Blog;
 
-import java.util.Map;
 import java.util.UUID;
 
 import static io.restassured.RestAssured.given;
@@ -25,9 +25,9 @@ class BlogResourceTest extends ResourceTest {
 
         @Test
         void should_create_blog() {
-            var authorId = UUID.randomUUID();
+            UUID authorId = UUID.randomUUID();
 
-            var blog = createBlog("Test Blog", "Something...", authorId);
+            BlogDto blog = createBlog("Test Blog", "Something...", authorId);
 
             assertThat(blog).isNotNull();
             assertThat(blog.title).isEqualTo("Test Blog");
@@ -42,10 +42,10 @@ class BlogResourceTest extends ResourceTest {
 
         @Test
         void should_get_blog() {
-            var authorId = UUID.randomUUID();
-            var createdBlog = createBlog("Test Blog", "Something...", authorId);
+            UUID authorId = UUID.randomUUID();
+            BlogDto createdBlog = createBlog("Test Blog", "Something...", authorId);
 
-            var blog = getBlog(createdBlog.id);
+            BlogDto blog = getBlog(createdBlog.id);
 
             assertThat(blog).isNotNull();
             assertThat(blog.id).isEqualTo(createdBlog.id);
@@ -56,7 +56,7 @@ class BlogResourceTest extends ResourceTest {
 
         @Test
         void should_return_404_when_blog_not_found() {
-            var blogId = UUID.randomUUID();
+            UUID blogId = UUID.randomUUID();
             given()
                     .when()
                     .get("/blog/" + blogId)
@@ -73,8 +73,8 @@ class BlogResourceTest extends ResourceTest {
 
         @Test
         void should_publish_blog() {
-            var authorId = UUID.randomUUID();
-            var createdBlog = createBlog("Test Blog", "Something...", authorId);
+            UUID authorId = UUID.randomUUID();
+            BlogDto createdBlog = createBlog("Test Blog", "Something...", authorId);
 
             given()
                     .contentType(ContentType.JSON)
@@ -83,7 +83,7 @@ class BlogResourceTest extends ResourceTest {
                     .then()
                     .statusCode(HttpStatus.CREATED.value());
 
-            var publishedBlot = getBlog(createdBlog.id);
+            BlogDto publishedBlot = getBlog(createdBlog.id);
 
             assertThat(publishedBlot).isNotNull();
             assertThat(publishedBlot.id).isEqualTo(createdBlog.id);
@@ -96,7 +96,7 @@ class BlogResourceTest extends ResourceTest {
 
         @Test
         void should_return_404_when_blog_not_found() {
-            var blogId = UUID.randomUUID();
+            UUID blogId = UUID.randomUUID();
             given()
                     .contentType(ContentType.JSON)
                     .when()
@@ -109,8 +109,8 @@ class BlogResourceTest extends ResourceTest {
 
         @Test
         void should_return_409_when_no_need_to_publish() {
-            var authorId = UUID.randomUUID();
-            var createdBlog = createBlog("Test Blog", "Something...", authorId);
+            UUID authorId = UUID.randomUUID();
+            BlogDto createdBlog = createBlog("Test Blog", "Something...", authorId);
 
             given()
                     .when()
@@ -134,12 +134,12 @@ class BlogResourceTest extends ResourceTest {
 
         @Test
         void should_save_blog() {
-            var authorId = UUID.randomUUID();
-            var createdBlog = createBlog("Test Blog", "Something...", authorId);
+            UUID authorId = UUID.randomUUID();
+            BlogDto createdBlog = createBlog("Test Blog", "Something...", authorId);
 
             given()
                     .contentType(ContentType.JSON)
-                    .body(Map.of(
+                    .body(ImmutableMap.of(
                             "title", "Updated Title",
                             "body", "Updated..."
                     ))
@@ -148,7 +148,7 @@ class BlogResourceTest extends ResourceTest {
                     .then()
                     .statusCode(HttpStatus.NO_CONTENT.value());
 
-            var updatedBlog = getBlog(createdBlog.id);
+            BlogDto updatedBlog = getBlog(createdBlog.id);
 
             assertThat(updatedBlog).isNotNull();
             assertThat(updatedBlog.id).isEqualTo(createdBlog.id);
@@ -159,10 +159,10 @@ class BlogResourceTest extends ResourceTest {
 
         @Test
         void should_return_empty_when_blog_not_found() {
-            var blogId = UUID.randomUUID();
+            UUID blogId = UUID.randomUUID();
             given()
                     .contentType(ContentType.JSON)
-                    .body(Map.of(
+                    .body(ImmutableMap.of(
                             "title", "Updated Title",
                             "body", "Updated..."
                     ))
@@ -181,8 +181,8 @@ class BlogResourceTest extends ResourceTest {
 
         @Test
         void should_delete_blog() {
-            var authorId = UUID.randomUUID();
-            var createdBlog = createBlog("Test Blog", "Something...", authorId);
+            UUID authorId = UUID.randomUUID();
+            BlogDto createdBlog = createBlog("Test Blog", "Something...", authorId);
 
             given()
                     .when()
@@ -199,7 +199,7 @@ class BlogResourceTest extends ResourceTest {
 
         @Test
         void should_return_404_when_blog_not_found() {
-            var blogId = UUID.randomUUID();
+            UUID blogId = UUID.randomUUID();
             given()
                     .when()
                     .delete("/blog/" + blogId)
@@ -216,7 +216,7 @@ class BlogResourceTest extends ResourceTest {
 
         @Test
         void should_get_blog_with_pagination() {
-            var authorId = UUID.randomUUID();
+            UUID authorId = UUID.randomUUID();
             createBlog("Test Blog 1", "Something...", authorId);
             createBlog("Test Blog 2", "Something...", authorId);
             createBlog("Test Blog 3", "Something...", authorId);
@@ -253,7 +253,7 @@ class BlogResourceTest extends ResourceTest {
     private BlogDto createBlog(String title, String body, UUID authorId) {
         return given()
                 .contentType(ContentType.JSON)
-                .body(Map.of(
+                .body(ImmutableMap.of(
                         "title", title,
                         "body", body,
                         "authorId", authorId

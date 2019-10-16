@@ -31,7 +31,7 @@ class BlogServiceTest {
 
         @Test
         void should_create_correctly() {
-            var createdUser = blogService
+            Blog createdUser = blogService
                     .createBlog("Test Blog", "Something...", UUID.randomUUID());
 
             verify(blogRepository).save(any(Blog.class));
@@ -44,17 +44,17 @@ class BlogServiceTest {
 
         @Test
         void should_get_correctly() {
-            var mockBlog = mock(Blog.class);
+            Blog mockBlog = mock(Blog.class);
             when(blogRepository.findById(mockBlog.getId())).thenReturn(Optional.of(mockBlog));
 
-            var foundBlog = blogService.getBlog(mockBlog.getId());
+            Blog foundBlog = blogService.getBlog(mockBlog.getId());
 
             assertThat(foundBlog).isEqualTo(mockBlog);
         }
 
         @Test
         void should_throw_EntityNotFoundException_when_blog_not_found() {
-            var mockBlog = mock(Blog.class);
+            Blog mockBlog = mock(Blog.class);
 
             when(blogRepository.findById(mockBlog.getId())).thenReturn(Optional.empty());
 
@@ -69,7 +69,7 @@ class BlogServiceTest {
 
         @Test
         void should_save_correctly() {
-            var mockBlog = mock(Blog.class);
+            Blog mockBlog = mock(Blog.class);
             when(blogRepository.findById(mockBlog.getId())).thenReturn(Optional.of(mockBlog));
 
             blogService.saveBlog(mockBlog.getId(), "Updated Title", "Updated...");
@@ -81,7 +81,7 @@ class BlogServiceTest {
 
         @Test
         void should_throw_EntityNotFoundException_when_blog_not_found() {
-            var mockBlog = mock(Blog.class);
+            Blog mockBlog = mock(Blog.class);
 
             when(blogRepository.findById(mockBlog.getId())).thenReturn(Optional.empty());
 
@@ -96,7 +96,7 @@ class BlogServiceTest {
 
         @Test
         void should_delete_correctly() {
-            var mockBlog = mock(Blog.class);
+            Blog mockBlog = mock(Blog.class);
             when(blogRepository.existsById(mockBlog.getId())).thenReturn(true);
 
             blogService.deleteBlog(mockBlog.getId());
@@ -106,7 +106,7 @@ class BlogServiceTest {
 
         @Test
         void should_throw_EntityNotFoundException_when_blog_not_found() {
-            var mockBlog = mock(Blog.class);
+            Blog mockBlog = mock(Blog.class);
 
             when(blogRepository.existsById(mockBlog.getId())).thenReturn(false);
 
@@ -121,7 +121,7 @@ class BlogServiceTest {
 
         @Test
         void should_delete_correctly() {
-            var mockBlog = mock(Blog.class);
+            Blog mockBlog = mock(Blog.class);
             when(blogRepository.findById(mockBlog.getId())).thenReturn(Optional.of(mockBlog));
 
             blogService.publishBlog(mockBlog.getId());
@@ -133,7 +133,7 @@ class BlogServiceTest {
 
         @Test
         void should_throw_EntityNotFoundException_when_blog_not_found() {
-            var mockBlog = mock(Blog.class);
+            Blog mockBlog = mock(Blog.class);
 
             when(blogRepository.findById(mockBlog.getId())).thenReturn(Optional.empty());
 
@@ -148,7 +148,7 @@ class BlogServiceTest {
 
         @Test
         void should_get_all_with_pagination() {
-            var mockCriteria = mock(BlogCriteria.class);
+            BlogCriteria mockCriteria = mock(BlogCriteria.class);
 
             blogService.getAllBlog(mockCriteria);
 

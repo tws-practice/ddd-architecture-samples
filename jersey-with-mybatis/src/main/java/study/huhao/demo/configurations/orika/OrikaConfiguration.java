@@ -10,7 +10,7 @@ public class OrikaConfiguration {
 
     @Bean
     public MapperFacade mapperFacade() {
-        var mapperFactory = new DefaultMapperFactory.Builder().build();
+        DefaultMapperFactory mapperFactory = new DefaultMapperFactory.Builder().build();
 
         return mapperFactory.getMapperFacade();
     }

@@ -4,10 +4,10 @@ import ma.glasnost.orika.MapperFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-import study.huhao.demo.domain.core.Page;
 import study.huhao.demo.domain.blogcontext.blog.BlogCriteria;
 import study.huhao.demo.domain.blogcontext.blog.BlogRepository;
 import study.huhao.demo.domain.blogcontext.blog.BlogService;
+import study.huhao.demo.domain.core.Page;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -37,7 +37,7 @@ public class BlogResource {
     @GET
     public Page<BlogDto> allBlog(@QueryParam("limit") int limit, @QueryParam("offset") int offset) {
 
-        var criteria = BlogCriteria.builder()
+        BlogCriteria criteria = BlogCriteria.builder()
                 .limit(limit)
                 .offset(offset)
                 .build();
@@ -49,7 +49,7 @@ public class BlogResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Transactional
     public Response createBlog(BlogCreateRequest data) {
-        var entity = mapper.map(
+        BlogDto entity = mapper.map(
                 blogService.createBlog(data.title, data.body, UUID.fromString(data.authorId)),
                 BlogDto.class
         );
