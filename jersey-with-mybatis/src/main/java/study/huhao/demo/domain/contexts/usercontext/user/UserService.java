@@ -1,4 +1,4 @@
-package study.huhao.demo.domain.usercontext.user;
+package study.huhao.demo.domain.contexts.usercontext.user;
 
 import study.huhao.demo.domain.core.concepts.Service;
 

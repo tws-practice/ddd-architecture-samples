@@ -1,7 +1,7 @@
 package study.huhao.demo.adapters.restapi.providers;
 
 import com.google.common.collect.ImmutableMap;
-import study.huhao.demo.domain.blogcontext.blog.exceptions.NoNeedToPublishException;
+import study.huhao.demo.domain.contexts.blogcontext.blog.exceptions.NoNeedToPublishException;
 
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;

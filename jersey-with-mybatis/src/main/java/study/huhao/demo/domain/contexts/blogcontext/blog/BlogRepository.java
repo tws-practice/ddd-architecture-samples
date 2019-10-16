@@ -1,4 +1,4 @@
-package study.huhao.demo.domain.blogcontext.blog;
+package study.huhao.demo.domain.contexts.blogcontext.blog;
 
 import study.huhao.demo.domain.core.common.Page;
 import study.huhao.demo.domain.core.concepts.Repository;
