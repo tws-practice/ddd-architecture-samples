@@ -29,9 +29,9 @@ class DomainLayerTest {
         void domain_layer_depend_on_rule() {
             classes()
                     .that().resideInAPackage("..domain..")
-                    .should().onlyDependOnClassesThat().resideInAnyPackage("java..", "..domain..")
+                    .should().onlyDependOnClassesThat().resideInAnyPackage("java..", "..domain..", "..com.google.common..")
                     .as("The domain layer should only depend on the classes in the package of " +
-                            "java and domain.")
+                            "guava, java and domain.")
                     .check(classes);
         }
 
