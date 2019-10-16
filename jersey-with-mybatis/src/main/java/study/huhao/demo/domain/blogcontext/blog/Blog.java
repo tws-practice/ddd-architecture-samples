@@ -1,7 +1,5 @@
 package study.huhao.demo.domain.blogcontext.blog;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
 import study.huhao.demo.domain.blogcontext.blog.exceptions.NoNeedToPublishException;
 import study.huhao.demo.domain.core.AggregateRoot;
 import study.huhao.demo.domain.core.ValueObject;
@@ -9,9 +7,8 @@ import study.huhao.demo.domain.core.ValueObject;
 import java.time.Instant;
 import java.util.UUID;
 
-@AllArgsConstructor
-@Getter
 public class Blog implements AggregateRoot {
+
     private UUID id;
     private String title;
     private String body;
@@ -31,6 +28,45 @@ public class Blog implements AggregateRoot {
         this.authorId = authorId;
         this.status = Status.Draft;
         this.savedAt = this.createdAt = Instant.now();
+    }
+
+    public Blog(UUID id, String title, String body, UUID authorId, Status status, Instant createdAt, Instant savedAt, PublishedBlog published) {
+        this.id = id;
+        this.title = title;
+        this.body = body;
+        this.authorId = authorId;
+        this.status = status;
+        this.createdAt = createdAt;
+        this.savedAt = savedAt;
+        this.published = published;
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getBody() {
+        return body;
+    }
+
+    public UUID getAuthorId() {
+        return authorId;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public Instant getCreatedAt() {
+        return createdAt;
+    }
+
+    public Instant getSavedAt() {
+        return savedAt;
     }
 
     public PublishedBlog getPublished() {

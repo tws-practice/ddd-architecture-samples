@@ -1,17 +1,11 @@
 package study.huhao.demo.infrastructure.persistence.blog;
 
-import lombok.*;
 import study.huhao.demo.domain.blogcontext.blog.Blog;
 import study.huhao.demo.infrastructure.persistence.PersistenceObject;
 
 import java.time.Instant;
 import java.util.UUID;
 
-// Lombok annotations
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor(access = AccessLevel.PROTECTED)
-@Getter
-@Builder
 public class BlogPO implements PersistenceObject<Blog> {
 
     private String id;
@@ -22,6 +16,52 @@ public class BlogPO implements PersistenceObject<Blog> {
     private Instant createdAt;
     private Instant savedAt;
     private PublishedBlogPO published;
+
+    BlogPO() {
+    }
+
+    BlogPO(String id, String title, String body, String authorId, String status, Instant createdAt, Instant savedAt, PublishedBlogPO published) {
+        this.id = id;
+        this.title = title;
+        this.body = body;
+        this.authorId = authorId;
+        this.status = status;
+        this.createdAt = createdAt;
+        this.savedAt = savedAt;
+        this.published = published;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getBody() {
+        return body;
+    }
+
+    public String getAuthorId() {
+        return authorId;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public Instant getCreatedAt() {
+        return createdAt;
+    }
+
+    public Instant getSavedAt() {
+        return savedAt;
+    }
+
+    public PublishedBlogPO getPublished() {
+        return published;
+    }
 
     // The persistence object needs to reflect the table structure.
     // The domain model and persistence object may have much different.
@@ -46,15 +86,14 @@ public class BlogPO implements PersistenceObject<Blog> {
     static BlogPO of(Blog blog) {
         if (blog == null) return null;
 
-        return BlogPO.builder()
-                .id(blog.getId().toString())
-                .title(blog.getTitle())
-                .body(blog.getBody())
-                .authorId(blog.getAuthorId().toString())
-                .status(blog.getStatus().toString())
-                .createdAt(blog.getCreatedAt())
-                .savedAt(blog.getSavedAt())
-                .published(PublishedBlogPO.of(blog.getPublished()))
-                .build();
+        return new BlogPO(
+                blog.getId().toString(),
+                blog.getTitle(),
+                blog.getBody(),
+                blog.getAuthorId().toString(),
+                blog.getStatus().toString(),
+                blog.getCreatedAt(),
+                blog.getSavedAt(),
+                PublishedBlogPO.of(blog.getPublished()));
     }
 }

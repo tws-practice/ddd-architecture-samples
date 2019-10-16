@@ -22,9 +22,6 @@ configurations {
         exclude module: 'spring-boot-starter-tomcat'
         exclude module: 'junit'
     }
-    compileOnly {
-        extendsFrom annotationProcessor
-    }
 }
 
 repositories {
@@ -39,7 +36,6 @@ dependencies {
     runtimeOnly 'org.springframework.boot:spring-boot-devtools'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
-    annotationProcessor 'org.projectlombok:lombok'
     implementation 'com.google.guava:guava:28.1-jre'
     implementation 'ma.glasnost.orika:orika-core:1.5.4'
 

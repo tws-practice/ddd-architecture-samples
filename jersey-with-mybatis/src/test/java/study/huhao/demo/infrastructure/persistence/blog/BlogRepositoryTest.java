@@ -86,7 +86,7 @@ class BlogRepositoryTest extends RepositoryTest {
         for (int i = 0; i < 5; i++) {
             blogService.createBlog("Test Blog " + (i + 1), "Something...", authorId);
         }
-        BlogCriteria criteria = BlogCriteria.builder().limit(3).offset(3).build();
+        BlogCriteria criteria = new BlogCriteria(3, 3);
 
         Page<Blog> pagedBlog = blogService.getAllBlog(criteria);
 

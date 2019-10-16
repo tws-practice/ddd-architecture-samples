@@ -1,10 +1,5 @@
 package study.huhao.demo.domain.core;
 
-import lombok.Getter;
-import lombok.experimental.SuperBuilder;
-
-@Getter
-@SuperBuilder
 public abstract class Criteria {
     private int limit;
     private long offset;
@@ -15,6 +10,14 @@ public abstract class Criteria {
 
         this.limit = limit;
         this.offset = offset;
+    }
+
+    public int getLimit() {
+        return limit;
+    }
+
+    public long getOffset() {
+        return offset;
     }
 
     public int getRequestPage() {

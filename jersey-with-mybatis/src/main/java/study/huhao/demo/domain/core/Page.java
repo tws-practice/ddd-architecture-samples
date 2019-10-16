@@ -1,12 +1,11 @@
 package study.huhao.demo.domain.core;
 
-import lombok.Getter;
+import com.google.common.collect.ImmutableList;
 
 import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-@Getter
 public class Page<T> implements ReadModel {
     private List<T> results;
     private int limit;
@@ -18,6 +17,23 @@ public class Page<T> implements ReadModel {
         this.limit = limit;
         this.offset = offset;
         this.total = total;
+    }
+
+    public List<T> getResults() {
+        // return immutable list to follow the encapsulation principle
+        return ImmutableList.copyOf(this.results);
+    }
+
+    public int getLimit() {
+        return limit;
+    }
+
+    public long getOffset() {
+        return offset;
+    }
+
+    public long getTotal() {
+        return total;
     }
 
     public <U> Page<U> map(Function<? super T, ? extends U> converter) {
