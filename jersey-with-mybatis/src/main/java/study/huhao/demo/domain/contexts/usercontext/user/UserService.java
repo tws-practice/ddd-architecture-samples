@@ -1,8 +1,8 @@
 package study.huhao.demo.domain.contexts.usercontext.user;
 
-import study.huhao.demo.domain.core.concepts.Service;
+import study.huhao.demo.domain.core.concepts.DomainService;
 
-public class UserService implements Service {
+public class UserService implements DomainService {
 
     private final UserRepository userRepository;
 
