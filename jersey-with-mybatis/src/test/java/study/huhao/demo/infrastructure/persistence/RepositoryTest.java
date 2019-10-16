@@ -12,7 +12,7 @@ import org.springframework.test.context.support.DependencyInjectionTestExecution
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.AUTO_CONFIGURED)
 @TestExecutionListeners({
         // These two listener can let @FlywayTest to work.
         DependencyInjectionTestExecutionListener.class,

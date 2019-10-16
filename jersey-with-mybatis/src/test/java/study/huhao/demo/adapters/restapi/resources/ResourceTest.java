@@ -5,6 +5,7 @@ import org.flywaydb.test.FlywayTestExecutionListener;
 import org.flywaydb.test.annotation.FlywayTest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.test.context.TestExecutionListeners;
@@ -13,6 +14,7 @@ import org.springframework.test.context.support.DependencyInjectionTestExecution
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.AUTO_CONFIGURED)
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class, FlywayTestExecutionListener.class})
 public abstract class ResourceTest {
 

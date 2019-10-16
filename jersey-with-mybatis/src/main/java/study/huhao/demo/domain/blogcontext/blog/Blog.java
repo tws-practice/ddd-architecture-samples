@@ -35,7 +35,8 @@ public class Blog implements AggregateRoot {
 
     public PublishedBlog getPublished() {
         // return immutable object to follow the encapsulation principle
-        return this.published == null ? null : new PublishedBlog(this.published.getTitle(),
+        return this.published == null ? null : new PublishedBlog(
+                this.published.getTitle(),
                 this.published.getBody(),
                 this.published.getPublishedAt());
     }
