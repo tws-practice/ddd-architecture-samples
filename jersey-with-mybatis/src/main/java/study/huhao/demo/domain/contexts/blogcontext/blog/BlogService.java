@@ -1,12 +1,12 @@
 package study.huhao.demo.domain.contexts.blogcontext.blog;
 
 import study.huhao.demo.domain.core.common.Page;
-import study.huhao.demo.domain.core.concepts.DomainService;
+import study.huhao.demo.domain.core.concepts.Service;
 import study.huhao.demo.domain.core.common.excpetions.EntityNotFoundException;
 
 import java.util.UUID;
 
-public class BlogService implements DomainService {
+public class BlogService implements Service {
 
     private final BlogRepository blogRepository;
 

@@ -49,7 +49,7 @@ class DomainLayerTest {
                     .orShould().implement(AggregateRoot.class)
                     .orShould().implement(ValueObject.class)
                     .orShould().implement(ReadModel.class)
-                    .orShould().implement(DomainService.class)
+                    .orShould().implement(Service.class)
                     .orShould().implement(Factory.class)
                     .orShould().beAssignableTo(Repository.class)
                     .orShould().beAssignableTo(DomainException.class)
@@ -67,7 +67,7 @@ class DomainLayerTest {
         @Test
         void services_should_be_named_ending_with_Service() {
             classes().that().resideInAPackage("..domain..")
-                    .and().implement(DomainService.class)
+                    .and().implement(Service.class)
                     .should().haveSimpleNameEndingWith("Service")
                     .as("The domain services should be named ending with 'Service'.")
                     .check(classes);
@@ -79,7 +79,7 @@ class DomainLayerTest {
                     .that().resideInAPackage("..domain..")
                     .and().haveSimpleNameEndingWith("Service")
                     .and().areNotInterfaces()
-                    .should().implement(DomainService.class)
+                    .should().implement(Service.class)
                     .as("The domain services should implement 'Service' interface.")
                     .check(classes);
         }

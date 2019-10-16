@@ -1,4 +1,4 @@
 package study.huhao.demo.application;
 
-public interface ApplicationService {
+public interface UseCase {
 }
