@@ -1,6 +1,7 @@
-package study.huhao.demo.domain.core;
+package study.huhao.demo.domain.core.common;
 
 import com.google.common.collect.ImmutableList;
+import study.huhao.demo.domain.core.concepts.ReadModel;
 
 import java.util.List;
 import java.util.function.Function;

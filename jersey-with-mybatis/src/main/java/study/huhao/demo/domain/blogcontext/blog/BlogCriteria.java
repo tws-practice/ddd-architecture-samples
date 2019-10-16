@@ -1,6 +1,6 @@
 package study.huhao.demo.domain.blogcontext.blog;
 
-import study.huhao.demo.domain.core.Criteria;
+import study.huhao.demo.domain.core.common.Criteria;
 
 public class BlogCriteria extends Criteria {
 

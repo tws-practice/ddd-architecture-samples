@@ -7,7 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import study.huhao.demo.domain.blogcontext.blog.BlogCriteria;
 import study.huhao.demo.domain.blogcontext.blog.BlogRepository;
 import study.huhao.demo.domain.blogcontext.blog.BlogService;
-import study.huhao.demo.domain.core.Page;
+import study.huhao.demo.domain.core.common.Page;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;

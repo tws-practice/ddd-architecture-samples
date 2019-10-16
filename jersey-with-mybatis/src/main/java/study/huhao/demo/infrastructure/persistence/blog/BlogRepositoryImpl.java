@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 import study.huhao.demo.domain.blogcontext.blog.Blog;
 import study.huhao.demo.domain.blogcontext.blog.BlogCriteria;
 import study.huhao.demo.domain.blogcontext.blog.BlogRepository;
-import study.huhao.demo.domain.core.Page;
+import study.huhao.demo.domain.core.common.Page;
 
 import java.util.List;
 import java.util.Optional;

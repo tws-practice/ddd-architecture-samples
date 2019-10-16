@@ -1,7 +1,7 @@
 package study.huhao.demo.domain.blogcontext.blog;
 
-import study.huhao.demo.domain.core.Page;
-import study.huhao.demo.domain.core.Repository;
+import study.huhao.demo.domain.core.common.Page;
+import study.huhao.demo.domain.core.concepts.Repository;
 
 import java.util.Optional;
 import java.util.UUID;

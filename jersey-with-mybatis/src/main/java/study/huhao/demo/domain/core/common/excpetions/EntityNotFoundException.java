@@ -1,6 +1,6 @@
-package study.huhao.demo.domain.core.excpetions;
+package study.huhao.demo.domain.core.common.excpetions;
 
-import study.huhao.demo.domain.core.Entity;
+import study.huhao.demo.domain.core.concepts.Entity;
 
 import java.util.UUID;
 

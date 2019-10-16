@@ -1,6 +1,6 @@
 package study.huhao.demo.domain.usercontext.user;
 
-import study.huhao.demo.domain.core.Service;
+import study.huhao.demo.domain.core.concepts.Service;
 
 public class UserService implements Service {
 

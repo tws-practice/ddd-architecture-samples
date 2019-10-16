@@ -1,6 +1,6 @@
 package study.huhao.demo.domain.usercontext.user;
 
-import study.huhao.demo.domain.core.AggregateRoot;
+import study.huhao.demo.domain.core.concepts.AggregateRoot;
 
 import java.util.UUID;
 

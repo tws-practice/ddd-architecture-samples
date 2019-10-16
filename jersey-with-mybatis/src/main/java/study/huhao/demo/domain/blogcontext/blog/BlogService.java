@@ -1,8 +1,8 @@
 package study.huhao.demo.domain.blogcontext.blog;
 
-import study.huhao.demo.domain.core.Page;
-import study.huhao.demo.domain.core.Service;
-import study.huhao.demo.domain.core.excpetions.EntityNotFoundException;
+import study.huhao.demo.domain.core.common.Page;
+import study.huhao.demo.domain.core.concepts.Service;
+import study.huhao.demo.domain.core.common.excpetions.EntityNotFoundException;
 
 import java.util.UUID;
 

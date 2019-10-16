@@ -1,7 +1,7 @@
 package study.huhao.demo.adapters.restapi.providers;
 
 import com.google.common.collect.ImmutableMap;
-import study.huhao.demo.domain.core.excpetions.EntityExistedException;
+import study.huhao.demo.domain.core.common.excpetions.EntityExistedException;
 
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;

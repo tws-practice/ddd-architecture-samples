@@ -1,6 +1,6 @@
 package study.huhao.demo.domain.blogcontext.blog;
 
-import study.huhao.demo.domain.core.ValueObject;
+import study.huhao.demo.domain.core.concepts.ValueObject;
 
 import java.time.Instant;
 import java.util.Objects;

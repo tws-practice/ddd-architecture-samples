@@ -4,7 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.mockito.InOrder;
-import study.huhao.demo.domain.core.excpetions.EntityNotFoundException;
+import study.huhao.demo.domain.core.common.excpetions.EntityNotFoundException;
 
 import java.util.Optional;
 import java.util.UUID;

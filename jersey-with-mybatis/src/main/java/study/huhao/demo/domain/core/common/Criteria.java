@@ -1,4 +1,4 @@
-package study.huhao.demo.domain.core;
+package study.huhao.demo.domain.core.common;
 
 public abstract class Criteria {
     private int limit;
