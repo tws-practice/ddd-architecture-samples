@@ -36,7 +36,7 @@ public class BlogResource {
 
     @GET
     public Page<BlogDto> allBlog(@QueryParam("limit") int limit, @QueryParam("offset") int offset) {
-        return blogQuery.all(limit, offset).map(blog -> mapper.map(blog, BlogDto.class));
+        return blogQuery.query(limit, offset).map(blog -> mapper.map(blog, BlogDto.class));
     }
 
     @POST

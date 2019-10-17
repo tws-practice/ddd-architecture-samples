@@ -23,8 +23,8 @@ public class BlogQuery {
         return blogService.get(id);
     }
 
-    public Page<Blog> all(int limit, int offset) {
+    public Page<Blog> query(int limit, int offset) {
         BlogCriteria criteria = new BlogCriteria(limit, offset);
-        return blogService.all(criteria);
+        return blogService.query(criteria);
     }
 }

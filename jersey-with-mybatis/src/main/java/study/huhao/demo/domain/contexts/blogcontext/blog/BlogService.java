@@ -42,7 +42,7 @@ public class BlogService implements Service {
         blogRepository.save(blog);
     }
 
-    public Page<Blog> all(BlogCriteria criteria) {
+    public Page<Blog> query(BlogCriteria criteria) {
         return blogRepository.findAllWithPagination(criteria);
     }
 }

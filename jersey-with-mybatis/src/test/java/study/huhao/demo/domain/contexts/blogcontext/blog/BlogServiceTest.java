@@ -150,7 +150,7 @@ class BlogServiceTest {
         void should_get_all_with_pagination() {
             BlogCriteria mockCriteria = mock(BlogCriteria.class);
 
-            blogService.all(mockCriteria);
+            blogService.query(mockCriteria);
 
             verify(blogRepository).findAllWithPagination(mockCriteria);
         }

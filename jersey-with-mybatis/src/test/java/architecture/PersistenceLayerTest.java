@@ -38,7 +38,7 @@ class PersistenceLayerTest {
         }
 
         @Test
-        void repository_impls_be_annotated_with_Component() {
+        void repository_impls_be_annotated_with_Repository() {
             classes()
                     .that().resideInAPackage("..persistence..")
                     .and().implement(Repository.class)

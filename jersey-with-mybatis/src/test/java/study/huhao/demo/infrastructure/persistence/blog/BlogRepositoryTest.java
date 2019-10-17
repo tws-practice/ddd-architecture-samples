@@ -88,7 +88,7 @@ class BlogRepositoryTest extends RepositoryTest {
         }
         BlogCriteria criteria = new BlogCriteria(3, 3);
 
-        Page<Blog> pagedBlog = blogService.all(criteria);
+        Page<Blog> pagedBlog = blogService.query(criteria);
 
         assertThat(pagedBlog.getResults()).hasSize(2);
         assertThat(pagedBlog.getLimit()).isEqualTo(3);
