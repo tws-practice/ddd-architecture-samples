@@ -3,10 +3,8 @@ package study.huhao.demo.adapters.restapi.resources.blog;
 import ma.glasnost.orika.MapperFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
-import study.huhao.demo.domain.contexts.blogcontext.blog.BlogCriteria;
-import study.huhao.demo.domain.contexts.blogcontext.blog.BlogRepository;
-import study.huhao.demo.domain.contexts.blogcontext.blog.BlogService;
+import study.huhao.demo.application.BlogEditor;
+import study.huhao.demo.application.BlogQuery;
 import study.huhao.demo.domain.core.common.Page;
 
 import javax.ws.rs.*;
@@ -24,30 +22,28 @@ import static javax.ws.rs.core.Response.status;
 @Produces(MediaType.APPLICATION_JSON)
 @Component
 public class BlogResource {
-    private final BlogService blogService;
 
+    private final BlogQuery blogQuery;
+    private final BlogEditor blogEditor;
     private final MapperFacade mapper;
 
     @Autowired
-    public BlogResource(BlogRepository blogRepository, MapperFacade mapper) {
-        this.blogService = new BlogService(blogRepository);
+    public BlogResource(BlogQuery blogQuery, BlogEditor blogEditor, MapperFacade mapper) {
+        this.blogQuery = blogQuery;
+        this.blogEditor = blogEditor;
         this.mapper = mapper;
     }
 
     @GET
     public Page<BlogDto> allBlog(@QueryParam("limit") int limit, @QueryParam("offset") int offset) {
-
-        BlogCriteria criteria = new BlogCriteria(limit, offset);
-
-        return blogService.getAllBlog(criteria).map(blog -> mapper.map(blog, BlogDto.class));
+        return blogQuery.all(limit, offset).map(blog -> mapper.map(blog, BlogDto.class));
     }
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    @Transactional
     public Response createBlog(BlogCreateRequest data) {
         BlogDto entity = mapper.map(
-                blogService.createBlog(data.title, data.body, UUID.fromString(data.authorId)),
+                blogEditor.create(data.title, data.body, UUID.fromString(data.authorId)),
                 BlogDto.class
         );
 
@@ -58,33 +54,27 @@ public class BlogResource {
     @GET
     @Path("{id}")
     public BlogDto getBlog(@PathParam("id") UUID id) {
-        return mapper.map(
-                blogService.getBlog(id),
-                BlogDto.class
-        );
+        return mapper.map(blogQuery.get(id), BlogDto.class);
     }
 
     @PUT
     @Path("{id}")
     @Consumes(MediaType.APPLICATION_JSON)
-    @Transactional
     public void saveBlog(@PathParam("id") UUID id, BlogSaveRequest data) {
-        blogService.saveBlog(id, data.title, data.body);
+        blogEditor.save(id, data.title, data.body);
     }
 
     @DELETE
     @Path("{id}")
-    @Transactional
     public void deleteBlog(@PathParam("id") UUID id) {
-        blogService.deleteBlog(id);
+        blogEditor.delete(id);
     }
 
     @POST
     @Path("{id}/published")
     @Consumes(MediaType.APPLICATION_JSON)
-    @Transactional
     public Response publishBlog(@PathParam("id") UUID id) {
-        blogService.publishBlog(id);
+        blogEditor.publish(id);
         return status(CREATED).build();
     }
 }
