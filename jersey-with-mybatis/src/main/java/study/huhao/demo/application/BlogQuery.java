@@ -20,11 +20,11 @@ public class BlogQuery {
     }
 
     public Blog get(UUID id) {
-        return blogService.getBlog(id);
+        return blogService.get(id);
     }
 
     public Page<Blog> all(int limit, int offset) {
         BlogCriteria criteria = new BlogCriteria(limit, offset);
-        return blogService.getAllBlog(criteria);
+        return blogService.all(criteria);
     }
 }

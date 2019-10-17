@@ -3,7 +3,7 @@ package study.huhao.demo.adapters.restapi.resources.blog;
 import ma.glasnost.orika.MapperFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import study.huhao.demo.application.BlogEditor;
+import study.huhao.demo.application.BlogEdit;
 import study.huhao.demo.application.BlogQuery;
 import study.huhao.demo.domain.core.common.Page;
 
@@ -24,13 +24,13 @@ import static javax.ws.rs.core.Response.status;
 public class BlogResource {
 
     private final BlogQuery blogQuery;
-    private final BlogEditor blogEditor;
+    private final BlogEdit blogEdit;
     private final MapperFacade mapper;
 
     @Autowired
-    public BlogResource(BlogQuery blogQuery, BlogEditor blogEditor, MapperFacade mapper) {
+    public BlogResource(BlogQuery blogQuery, BlogEdit blogEdit, MapperFacade mapper) {
         this.blogQuery = blogQuery;
-        this.blogEditor = blogEditor;
+        this.blogEdit = blogEdit;
         this.mapper = mapper;
     }
 
@@ -43,7 +43,7 @@ public class BlogResource {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response createBlog(BlogCreateRequest data) {
         BlogDto entity = mapper.map(
-                blogEditor.create(data.title, data.body, UUID.fromString(data.authorId)),
+                blogEdit.create(data.title, data.body, UUID.fromString(data.authorId)),
                 BlogDto.class
         );
 
@@ -61,20 +61,20 @@ public class BlogResource {
     @Path("{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     public void saveBlog(@PathParam("id") UUID id, BlogSaveRequest data) {
-        blogEditor.save(id, data.title, data.body);
+        blogEdit.saveDraft(id, data.title, data.body);
     }
 
     @DELETE
     @Path("{id}")
     public void deleteBlog(@PathParam("id") UUID id) {
-        blogEditor.delete(id);
+        blogEdit.delete(id);
     }
 
     @POST
     @Path("{id}/published")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response publishBlog(@PathParam("id") UUID id) {
-        blogEditor.publish(id);
+        blogEdit.publish(id);
         return status(CREATED).build();
     }
 }

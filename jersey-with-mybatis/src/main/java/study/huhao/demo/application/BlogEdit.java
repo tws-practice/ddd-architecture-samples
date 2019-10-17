@@ -10,32 +10,32 @@ import study.huhao.demo.domain.contexts.blogcontext.blog.BlogService;
 import java.util.UUID;
 
 @Service
-public class BlogEditor {
+public class BlogEdit {
 
     private final BlogService blogService;
 
     @Autowired
-    public BlogEditor(BlogRepository blogRepository) {
+    public BlogEdit(BlogRepository blogRepository) {
         this.blogService = new BlogService(blogRepository);
     }
 
     @Transactional
     public Blog create(String title, String body, UUID authorId) {
-        return blogService.createBlog(title, body, authorId);
+        return blogService.create(title, body, authorId);
     }
 
     @Transactional
     public void delete(UUID id) {
-        blogService.deleteBlog(id);
+        blogService.delete(id);
     }
 
     @Transactional
-    public void save(UUID id, String title, String body) {
-        blogService.saveBlog(id, title, body);
+    public void saveDraft(UUID id, String title, String body) {
+        blogService.saveDraft(id, title, body);
     }
 
     @Transactional
     public void publish(UUID id) {
-        blogService.publishBlog(id);
+        blogService.publish(id);
     }
 }

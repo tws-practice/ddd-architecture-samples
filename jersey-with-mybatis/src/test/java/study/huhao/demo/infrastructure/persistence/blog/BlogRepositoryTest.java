@@ -31,9 +31,9 @@ class BlogRepositoryTest extends RepositoryTest {
     @Test
     void findById() {
         Blog blog = blogService
-                .createBlog("Test Blog", "Something...", UUID.randomUUID());
+                .create("Test Blog", "Something...", UUID.randomUUID());
 
-        Blog foundBlog = blogService.getBlog(blog.getId());
+        Blog foundBlog = blogService.get(blog.getId());
 
         assertThat(foundBlog.getId()).isEqualTo(blog.getId());
         assertThat(foundBlog.getTitle()).isEqualTo("Test Blog");
@@ -43,11 +43,11 @@ class BlogRepositoryTest extends RepositoryTest {
     @Test
     void save_updated_blog() {
         Blog blog = blogService
-                .createBlog("Test Blog", "Something...", UUID.randomUUID());
+                .create("Test Blog", "Something...", UUID.randomUUID());
 
-        blogService.saveBlog(blog.getId(), "Updated Title", "Updated...");
+        blogService.saveDraft(blog.getId(), "Updated Title", "Updated...");
 
-        Blog foundBlog = blogService.getBlog(blog.getId());
+        Blog foundBlog = blogService.get(blog.getId());
         assertThat(foundBlog.getId()).isEqualTo(blog.getId());
         assertThat(foundBlog.getTitle()).isEqualTo("Updated Title");
         assertThat(foundBlog.getBody()).isEqualTo("Updated...");
@@ -56,22 +56,22 @@ class BlogRepositoryTest extends RepositoryTest {
     @Test
     void delete_blog() {
         Blog blog = blogService
-                .createBlog("Test Blog", "Something...", UUID.randomUUID());
+                .create("Test Blog", "Something...", UUID.randomUUID());
 
-        blogService.deleteBlog(blog.getId());
+        blogService.delete(blog.getId());
 
-        assertThatThrownBy(() -> blogService.getBlog(blog.getId()))
+        assertThatThrownBy(() -> blogService.get(blog.getId()))
                 .isInstanceOf(EntityNotFoundException.class);
     }
 
     @Test
     void publish_blog() {
         Blog blog = blogService
-                .createBlog("Test Blog", "Something...", UUID.randomUUID());
+                .create("Test Blog", "Something...", UUID.randomUUID());
 
-        blogService.publishBlog(blog.getId());
+        blogService.publish(blog.getId());
 
-        Blog foundBlog = blogService.getBlog(blog.getId());
+        Blog foundBlog = blogService.get(blog.getId());
         assertThat(foundBlog.getId()).isEqualTo(blog.getId());
         assertThat(foundBlog.getStatus()).isEqualTo(Blog.Status.Published);
         assertThat(foundBlog.getPublished()).isNotNull();
@@ -84,11 +84,11 @@ class BlogRepositoryTest extends RepositoryTest {
     void get_all_blog() {
         UUID authorId = UUID.randomUUID();
         for (int i = 0; i < 5; i++) {
-            blogService.createBlog("Test Blog " + (i + 1), "Something...", authorId);
+            blogService.create("Test Blog " + (i + 1), "Something...", authorId);
         }
         BlogCriteria criteria = new BlogCriteria(3, 3);
 
-        Page<Blog> pagedBlog = blogService.getAllBlog(criteria);
+        Page<Blog> pagedBlog = blogService.all(criteria);
 
         assertThat(pagedBlog.getResults()).hasSize(2);
         assertThat(pagedBlog.getLimit()).isEqualTo(3);

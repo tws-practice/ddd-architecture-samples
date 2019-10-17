@@ -84,7 +84,7 @@ public class Blog implements AggregateRoot {
         this.status = Status.Published;
     }
 
-    void save(String title, String body) {
+    void saveDraft(String title, String body) {
         validateTitle(title);
 
         this.title = title;
