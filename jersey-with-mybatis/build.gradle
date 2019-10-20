@@ -1,7 +1,6 @@
 buildscript {
     repositories {
-        mavenCentral()
-        jcenter()
+        maven { url 'https://mirrors.huaweicloud.com/repository/maven/' }
     }
 }
 
@@ -25,8 +24,7 @@ configurations {
 }
 
 repositories {
-    mavenCentral()
-    jcenter()
+    maven { url 'https://mirrors.huaweicloud.com/repository/maven/' }
 }
 
 dependencies {
